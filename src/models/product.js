@@ -8,18 +8,20 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    quantity: {
-      type: Number,
+    cuantity: {
+      type: String,
       required: true,
     },
 
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: true,
     },
     pantry_id: {
       type: Schema.Types.ObjectId,
       ref: "pantry",
+      required: true,
     },
   },
   {

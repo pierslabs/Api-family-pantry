@@ -12,6 +12,12 @@ const PantrySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "product",
+      },
+    ],
   },
   {
     timestamps: true,

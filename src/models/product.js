@@ -15,11 +15,11 @@ const ProductSchema = new Schema(
 
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: user,
+      ref: "user",
     },
     pantry_id: {
       type: Schema.Types.ObjectId,
-      ref: pantry,
+      ref: "pantry",
     },
   },
   {

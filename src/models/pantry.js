@@ -10,7 +10,7 @@ const PantrySchema = new Schema(
     },
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: user,
+      ref: "user",
     },
   },
   {

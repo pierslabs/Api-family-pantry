@@ -1,6 +1,9 @@
-import { MongoCursorInUseError } from "mongodb";
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
+import { createToken } from "../helper/jwt.js";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "variables.env" });
 
 export const signUp = async (req, res) => {
   const { email, password } = req.body;
@@ -23,5 +26,25 @@ export const signUp = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  res.send("soy login");
+  const { email, password } = req.body;
+
+  try {
+    const findUser = await User.findOne({ email });
+
+    if (!findUser) {
+      throw new Error("El usuario no existe");
+    }
+
+    const verifyPass = await bcrypt.compare(password, findUser.password);
+
+    if (!verifyPass) {
+      throw new Error("El email o el password no son correctos");
+    }
+
+    const token = createToken(findUser, process.env.SECRET, "48h");
+
+    res.status(200).json({ token });
+  } catch (error) {
+    console.log(error);
+  }
 };

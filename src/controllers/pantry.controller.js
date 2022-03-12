@@ -5,6 +5,8 @@ export const getPantry = async (req, res) => {
   const user = decodeToken(req);
   const { id } = req.params;
 
+  if (!id) throw new Error("no tienes permisos");
+
   try {
     const pantry = await Pantry.findOne({ _id: id });
 

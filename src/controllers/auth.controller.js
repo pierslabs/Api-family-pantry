@@ -32,13 +32,13 @@ export const login = async (req, res) => {
     const findUser = await User.findOne({ email });
 
     if (!findUser) {
-      throw new Error("El usuario no existe");
+      res.json("El usuario no existe");
     }
 
     const verifyPass = await bcrypt.compare(password, findUser.password);
 
     if (!verifyPass) {
-      throw new Error("El email o el password no son correctos");
+      res.json("El email o el password no son correctos");
     }
 
     const token = createToken(findUser, process.env.SECRET, "48h");

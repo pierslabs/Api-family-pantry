@@ -6,11 +6,11 @@ import dotenv from "dotenv";
 dotenv.config({ path: "variables.env" });
 
 export const signUp = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
   const findUSer = await User.findOne({ email });
 
   if (findUSer) {
-    throw new Error("El usuario ya existe");
+    res.json("El usuario ya existe");
   }
 
   const salt = await bcrypt.genSalt(10);

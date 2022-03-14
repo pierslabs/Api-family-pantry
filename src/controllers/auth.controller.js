@@ -10,7 +10,7 @@ export const signUp = async (req, res) => {
   const findUSer = await User.findOne({ email });
 
   if (findUSer) {
-    res.json("El usuario ya existe");
+    res.status(400).json("El usuario ya existe");
   }
 
   const salt = await bcrypt.genSalt(10);

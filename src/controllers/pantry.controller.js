@@ -8,7 +8,7 @@ export const getPantry = async (req, res) => {
   if (!id) throw new Error("no tienes permisos");
 
   try {
-    const pantry = await Pantry.findOne({ _id: id });
+    const pantry = await Pantry.findOne({ _id: id }).populate("product");
 
     if (!pantry) {
       throw new Error("Cesta no encontrada");

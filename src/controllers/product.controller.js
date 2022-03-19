@@ -7,22 +7,20 @@ export const getProduct = async (req, res) => {
   const user = decodeToken(req);
   const { id } = req.params;
 
-  try {
-    const findProduct = await Product.findOne({ _id: id });
+  const findProduct = await Product.findOne({ _id: id });
 
-    if (!findProduct) {
-      throw new Error("Producto no encontrado");
-    }
-
-    if (findProduct.user_id.toString() !== user.id) {
-      throw new Error("No tienes privilegios para ver este producto");
-    }
-
-    res.status(200).json(findProduct);
-  } catch (error) {
-    console.log(error);
+  if (!findProduct) {
+    res.status(400).json("Producto no encontrado");
   }
+
+  if (findProduct.user_id.toString() !== user.id) {
+    res.status(400).json("No tienes privilegios para ver este producto");
+  }
+
+  res.status(200).json(findProduct);
 };
+
+export const getAllProducts = async (req, res) => {};
 
 export const createProduct = async (req, res) => {
   const user = decodeToken(req);

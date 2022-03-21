@@ -29,12 +29,12 @@ export const getPantry = async (req, res) => {
 export const getPantrys = async (req, res) => {
   const user = decodeToken(req);
 
-  const pantrys = await Pantry.find({ user_id: user.id });
-
-  if (!pantrys) {
-    res.json(400).json({ status: false, data: "No existen cestas" });
+  try {
+    const pantrys = await Pantry.find({ user_id: user.id });
+    res.status(200).json(pantrys);
+  } catch (error) {
+    console.log(error);
   }
-  res.status(200).json({ status: true, data: pantrys });
 };
 
 export const createPantry = async (req, res) => {
